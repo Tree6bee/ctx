@@ -1,6 +1,6 @@
 <?php
 
-namespace Tree6bee\Ctx\Basic\Rpc;
+namespace Tree6bee\Ctx\Rpc;
 
 /**
  * Rpc Server

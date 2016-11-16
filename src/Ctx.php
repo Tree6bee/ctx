@@ -33,6 +33,10 @@ class Ctx
     public static function getInstance($ctxBase, $ctxNamespace = 'Ctx')
     {
         $ctxBase = realpath($ctxBase);
+        if (empty($ctxBase)) { //false 不存在的目录
+            throw new Exception("ctx_base 不能为空");
+        }
+
         if (empty(self::$ctxInstance[$ctxBase])) {
             self::$ctxInstance[$ctxBase] = new self($ctxBase, $ctxNamespace);
         }
@@ -82,7 +86,7 @@ class Ctx
             $this->$m->initWithArgs($this->ctxNamespace, $m);
             return $this->$m;
         }
-        throw new Exception("Module {$m} do not exist.");
+        throw new Exception("Module {$m} do not exist, failed to load file: " . $file);
     }
 
     /**

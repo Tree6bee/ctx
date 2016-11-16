@@ -16,7 +16,12 @@ class CtxTest extends \PHPUnit_Framework_TestCase
 
     public function testCtx()
     {
-        $ret = $this->ctx->Ctx->debug('Ctx run.');
-        $this->assertEquals('Ctx run.', $ret);
+        $ret = $this->ctx->Ctx->setMessage('Ctx.');
+        $this->assertEquals(true, $ret);
+
+        //factory
+        $ctx = ctx(__DIR__ . '/ctx-demo');
+        $ret = $ctx->Ctx->getMessage('Ctx.');
+        $this->assertEquals('hello Ctx.', $ret);
     }
 }

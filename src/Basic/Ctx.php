@@ -12,26 +12,26 @@ use Tree6bee\Ctx\Rpc\Http\EasyCurl;
  *
  * @copyright sh7ning 2016.1
  * @author    sh7ning
- * @version   0.0.1
  */
 abstract class Ctx
 {
     /*--- part.1 框架核心 ---*/
     /**
+     * 命名空间
+     * 辅助方法有setNamespace() 和 getNamespace()
+     */
+    private $namespace = '';
+
+    final public function getNamespace()
+    {
+        return $this->namespace;
+    }
+
+    /**
      * 模块名
      * 辅助方法有setModName() 和 getModName()
      */
     private $modName = '';
-
-    /**
-     * 请勿调用，系统会执行一次
-     */
-    final public function setModName($modName)
-    {
-        if ($modName && is_string($modName) && empty($this->modName)) {
-            $this->modName = $modName;
-        }
-    }
 
     final public function getModName()
     {
@@ -39,30 +39,27 @@ abstract class Ctx
     }
 
     /**
-     * 是否已经实例化过，防止被再次调用
-     */
-    private $inited = false;
-
-    /**
      * 模块初始化方法
      */
-    public function init()
+    final public function initWithArgs($namespace, $modName)
     {
         //只能被框架调用一次，不允许用户调用
-        if ($this->inited) {
+        if (empty($namespace) || empty($modName) || $this->namespace) {
             throw new Exception('method deny,invoke:' . __METHOD__ . '@' . get_class($this));
         }
-        $this->inited = true;
+
+        //初始化模块属性
+        $this->namespace = $namespace;
+        $this->modName = $modName;
+
+        $this->init();
     }
 
     /**
-     * 检查是否掉用过父类的init
+     * 模块具体执行的初始化方法
      */
-    final public function checkInited()
+    protected function init()
     {
-        if (! $this->inited) {
-            throw new Exception('u should invoke method: parent::init(),invoke:' . __METHOD__ . '@' . get_class($this));
-        }
     }
 
     /**
@@ -77,7 +74,7 @@ abstract class Ctx
         $class = array_shift($args);
         if (! empty($this->modName)) {
             $class = ucfirst($class);
-            $className = '\Ctx\Service\\' . $this->modName . '\\' . $class;
+            $className = '\\' . $this->namespace . '\Service\\' . $this->modName . '\\' . $class;
             $classReflection = new ReflectionClass($className);
             //classReflection 拥有的方法: isAbstract | isInterface | isSubclassOf | hasMethod | getMethod('方法名')->isPublic()
             //getConstructor()->getParameters() 获取构造函数的参数(方便实现依赖注入)
@@ -85,9 +82,7 @@ abstract class Ctx
             // if ($subObj instanceof self)  也可以, if ($subObj instanceof static) 不行
             if ($classReflection->isSubclassOf(__CLASS__)) {
                 $subObj->ctx = $this->ctx;
-                $subObj->setModName($this->modName);
-                $subObj->init();
-                $subObj->checkInited();
+                $subObj->initWithArgs($this->namespace, $this->modName);
             }
             return $subObj;
         } else {    //还未完成初始化(在构造函数__construct中调用loadC)是不允许调用父类的loadC
@@ -106,7 +101,10 @@ abstract class Ctx
     /**
      * rpc配置
      */
-    protected $rpc = array();
+    protected $rpc = array(
+        'host'      => '',  //网关地址
+        'method'    => array(), //方法名
+    );
 
     /**
      * 远程Rpc调度实际逻辑，方便子类进行更灵活的操作如:显式调用,异步调用等

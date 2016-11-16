@@ -11,6 +11,24 @@ use Ctx\Basic\Ctx;
  */
 class CtxCtx extends Ctx
 {
+    public function init()
+    {
+        $this->demo = $this->loadC('Demo', 'hello');
+    }
+
+    /**
+     * 测试代码
+     */
+    public function setMessage($var)
+    {
+        return $this->demo->setMessage($var);
+    }
+
+    public function getMessage()
+    {
+        return $this->demo->getMessage();
+    }
+
     /**
      * @deprecated 调试代码
      */
@@ -24,27 +42,8 @@ class CtxCtx extends Ctx
     /**
      * 测试代码
      */
-    public function debug($var = array())
-    {
-        return $var;
-    }
-
-    /**
-     * 测试代码
-     */
     private function rpcDebug($var = array())
     {
         return $var;
-    }
-
-    /**
-     * 输出调试信息
-     */
-    public function dd()
-    {
-        array_map(function ($x) {
-            // (new Dumper)->dump($x);
-            echo '<pre>' . var_export($x, true) . '</pre>';
-        }, func_get_args());
     }
 }

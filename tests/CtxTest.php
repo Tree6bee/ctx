@@ -2,8 +2,6 @@
 
 namespace Tests\Tree6bee\Ctx;
 
-use Tree6bee\Ctx\Rpc\Http\EasyCurl;
-
 /**
  * @todo 增加rpc的单测
  */

@@ -14,8 +14,7 @@
 
     "autoload": {
         "files": [
-            "src/Loader/file.php",
-            "src/Helper/ctx.php"
+            "src/Loader/file.php"
         ],
         "psr-4": {
             "Tree6bee\\Ctx\\": "src/"
@@ -23,7 +22,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Ctx\\": "tests/ctx-demo/"
+            "Tests\\Tree6bee\\Ctx\\": "tests/ctx-demo/"
         }
     }
 }

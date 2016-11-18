@@ -44,6 +44,7 @@ abstract class Ctx
     final public function initWithArgs($namespace, $modName)
     {
         //只能被框架调用一次，不允许用户调用
+        //此处不采用反射实现，是因为已知可以直接传递，减少计算量
         if (empty($namespace) || empty($modName) || $this->namespace) {
             throw new Exception('method deny,invoke:' . __METHOD__ . '@' . get_class($this));
         }

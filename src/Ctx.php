@@ -4,6 +4,7 @@ namespace Tree6bee\Ctx;
 
 use Tree6bee\Ctx\Exceptions\Exception;
 use Tree6bee\Ctx\Loader;
+use ReflectionClass;
 
 /**
  * 通用context对象
@@ -13,7 +14,7 @@ use Tree6bee\Ctx\Loader;
  * @version   0.0.1
  * @example
  */
-class Ctx
+abstract class Ctx
 {
     /**
      * 私有克隆函数，防止外办克隆对象
@@ -30,18 +31,13 @@ class Ctx
     /**
      * 请求单例
      */
-    public static function getInstance($ctxBase, $ctxNamespace = 'Ctx')
+    public static function getInstance()
     {
-        $ctxBase = realpath($ctxBase);
-        if (empty($ctxBase)) { //false 不存在的目录
-            throw new Exception("ctx_base 不能为空");
+        if (empty(self::$ctxInstance)) {
+            self::$ctxInstance = new static();
         }
 
-        if (empty(self::$ctxInstance[$ctxBase])) {
-            self::$ctxInstance[$ctxBase] = new self($ctxBase, $ctxNamespace);
-        }
-
-        return self::$ctxInstance[$ctxBase];
+        return self::$ctxInstance;
     }
 
     /**
@@ -59,11 +55,11 @@ class Ctx
     /**
      * 私有构造函数，防止外界实例化对象
      */
-    private function __construct($ctxBase, $ctxNamespace)
+    private function __construct()
     {
-        //定义Ctx目录常量
-        $this->ctxBase = $ctxBase;
-        $this->ctxNamespace = $ctxNamespace;
+        $thisReflection = new ReflectionClass($this);
+        $this->ctxBase = dirname($thisReflection->getFileName());
+        $this->ctxNamespace = $thisReflection->getNamespaceName();
     }
 
     /**

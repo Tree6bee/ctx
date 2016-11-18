@@ -4,6 +4,9 @@ namespace Tests\Tree6bee\Ctx;
 
 use Tree6bee\Ctx\Rpc\Http\EasyCurl;
 
+/**
+ * @todo 增加rpc的单测
+ */
 class CtxTest extends \PHPUnit_Framework_TestCase
 {
     public function __construct($name = null, array $data = [], $dataName = '')
@@ -11,7 +14,7 @@ class CtxTest extends \PHPUnit_Framework_TestCase
         parent::__construct($name, $data, $dataName);
 
         //初始化用于测试的ctx单例对象
-        $this->ctx = \Tree6bee\Ctx\Ctx::getInstance(__DIR__ . '/ctx-demo');
+        $this->ctx = \Tests\Tree6bee\Ctx\Ctx::getInstance();
     }
 
     public function testCtx()
@@ -20,7 +23,7 @@ class CtxTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(true, $ret);
 
         //factory
-        $ctx = ctx(__DIR__ . '/ctx-demo');
+        $ctx = \Tests\Tree6bee\Ctx\Ctx::getInstance();
         $ret = $ctx->Ctx->getMessage('Ctx.');
         $this->assertEquals('hello Ctx.', $ret);
     }

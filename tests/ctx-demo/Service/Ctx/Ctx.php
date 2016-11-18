@@ -1,8 +1,8 @@
 <?php
 
-namespace Ctx\Service\Ctx;
+namespace Tests\Tree6bee\Ctx\Service\Ctx;
 
-use Ctx\Basic\Ctx;
+use Tests\Tree6bee\Ctx\Basic\Ctx;
 
 /**
  * 模块接口声明文件

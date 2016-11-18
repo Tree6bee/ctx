@@ -1,6 +1,6 @@
 <?php
 
-namespace Ctx\Basic;
+namespace Tests\Tree6bee\Ctx\Basic;
 
 use Tree6bee\Ctx\Basic\Ctx as BasicCtx;
 

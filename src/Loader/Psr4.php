@@ -4,10 +4,9 @@ namespace Tree6bee\Ctx\Loader;
 
 /**
  * 框架加载类
- * @deprecated 废弃，采用composer本身进行加载
  *
  * @example 
- *      new \Tree6bee\Ctx\Loader\Psr4(array('Ctx\\', __DIR__ . '/../Ctx'));
+ *      new \Tree6bee\Ctx\Loader\Psr4(array('Ctx\\' => __DIR__ . '/../Ctx'));
  */
 class Psr4
 {
@@ -16,7 +15,7 @@ class Psr4
     public function __construct($psr4map)
     {
         $this->psr4map = $psr4map;
-        spl_autoload_register(array($this, 'loadClass'));
+        spl_autoload_register(array($this, 'loadClass'), true, true);
     }
 
 

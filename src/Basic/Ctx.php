@@ -15,6 +15,11 @@ use Tree6bee\Ctx\Rpc\Http\EasyCurl;
  */
 abstract class Ctx
 {
+    /**
+     * @var \Tree6bee\Ctx\Ctx $ctx
+     */
+    public $ctx;
+
     /*--- part.1 框架核心 ---*/
     /**
      * 命名空间
@@ -40,6 +45,10 @@ abstract class Ctx
 
     /**
      * 模块初始化方法
+     *
+     * @param $namespace
+     * @param $modName
+     * @throws Exception
      */
     final public function initWithArgs($namespace, $modName)
     {
@@ -93,6 +102,11 @@ abstract class Ctx
 
     /**
      * 远程Rpc调度
+     *
+     * @param $method
+     * @param $args
+     *
+     * @return mixed
      */
     public function __call($method, $args)
     {
@@ -109,6 +123,12 @@ abstract class Ctx
 
     /**
      * 远程Rpc调度实际逻辑，方便子类进行更灵活的操作如:显式调用,异步调用等
+     *
+     * @param $method
+     * @param $args
+     *
+     * @return mixed
+     * @throws Exception
      */
     protected function invokeRpc($method, $args)
     {

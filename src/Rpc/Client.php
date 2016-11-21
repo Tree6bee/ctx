@@ -45,8 +45,12 @@ class Client
 
     /**
      * 解析rpc返回数据
-     * @param $response 返回数据
-     * @param $request 请求数据 主要用于rpc发生错误的时候记录日志
+     *
+     * @param string $response 返回数据
+     * @param array $request 请求数据 主要用于rpc发生错误的时候记录日志
+     *
+     * @return mixed
+     * @throws Exception
      */
     private function parseRpcData($response, $request = array())
     {

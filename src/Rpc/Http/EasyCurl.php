@@ -26,7 +26,6 @@ class EasyCurl implements ClientContract
     //是否接受header
     private $withHeader = false;
 
-    //CURLOPT_MAXREDIRS
     //指定最多的 HTTP 重定向次数
     public $maxRedirs = 0;
 
@@ -40,11 +39,18 @@ class EasyCurl implements ClientContract
     public $cookie;
 
     /**
+     *
      * CURL-post方式获取数据
-     * @param string $url URL
-     * @param array  $body POST数据
      * 可以上传文件 image/jpg 等
      * 如 "@{$file};type=audio/amr" 或 "@{$file}"
+     *
+     * @param string $method
+     * @param string $url URL
+     * @param array  $body POST数据
+     * @param array $headers
+     *
+     * @return array
+     * @throws Exception
      */
     public function request($method = 'get', $url, $body = array(), $headers = array())
     {
@@ -95,7 +101,7 @@ class EasyCurl implements ClientContract
         }
 
         if (! empty($this->cookie)) {
-            curl_setopt($ch, CURLOPT_COOKIE, $cookie);
+            curl_setopt($ch, CURLOPT_COOKIE, $this->cookie);
         }
 
         //跳转后是否接着

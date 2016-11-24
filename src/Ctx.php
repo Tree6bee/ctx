@@ -25,8 +25,9 @@ abstract class Ctx
 
     /**
      * 框架单例，静态变量保存全局实例
+     * @description 这里设置为private，是为了让该静态属性必须被继承，且必须为 protected
      */
-    private static $ctxInstance = array();
+    private static $ctxInstance;
 
     /**
      * 请求单例
@@ -35,11 +36,11 @@ abstract class Ctx
      */
     public static function getInstance()
     {
-        if (empty(self::$ctxInstance)) {
-            self::$ctxInstance = new static();
+        if (empty(static::$ctxInstance)) {
+            static::$ctxInstance = new static();
         }
 
-        return self::$ctxInstance;
+        return static::$ctxInstance;
     }
 
     /**

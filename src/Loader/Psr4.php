@@ -12,10 +12,10 @@ class Psr4
 {
     private $psr4map = array();
 
-    public function __construct($psr4map)
+    public function __construct($psr4map, $prepend = false)
     {
         $this->psr4map = $psr4map;
-        spl_autoload_register(array($this, 'loadClass'), true, true);
+        spl_autoload_register(array($this, 'loadClass'), true, $prepend);
     }
 
 

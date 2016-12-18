@@ -3,7 +3,7 @@
 namespace Tree6bee\Ctx;
 
 use Tree6bee\Ctx\Exceptions\Exception;
-use Tree6bee\Ctx\Loader;
+use Tree6bee\Support\Ctx\Loader;
 use ReflectionClass;
 
 /**

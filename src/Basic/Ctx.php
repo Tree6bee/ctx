@@ -5,7 +5,6 @@ namespace Tree6bee\Ctx\Basic;
 use Tree6bee\Ctx\Exceptions\Exception;
 use ReflectionClass;
 use Tree6bee\Ctx\Rpc\Client;
-use Tree6bee\Ctx\Rpc\Http\EasyCurl;
 
 /**
  * 所有的业务模块基类
@@ -136,7 +135,7 @@ abstract class Ctx
             throw new Exception('非法调用:' .$method . '@' . get_class($this));
         }
 
-        $rpc = new Client($this->rpc['host'], $this->modName, (new EasyCurl));
+        $rpc = new Client($this->rpc['host'], $this->modName);
 
         return $rpc($method, $args);
     }

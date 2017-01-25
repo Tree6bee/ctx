@@ -4,6 +4,7 @@ namespace Tree6bee\Ctx\Rpc;
 
 use Tree6bee\Ctx\Rpc\Http\ClientContract as HttpClientContract;
 use Tree6bee\Ctx\Exceptions\Exception;
+use Tree6bee\Ctx\Rpc\Http\EasyCurl;
 
 /**
  * Rpc Client
@@ -17,24 +18,44 @@ class Client
 {
     private $agent = 'CtxRpc 1.0';
 
-    public function __construct($host, $modName, HttpClientContract $httpClient = null)
+    protected static $httpClient = null;
+
+    public function __construct($host, $modName)
     {
         $this->host = $host;
         $this->modName = $modName;
-        $this->httpClient = $httpClient;
+    }
+
+    /**
+     * 设置 http client 增加库得可测试性
+     * @param HttpClientContract $httpClient
+     */
+    public static function setHttpClient(HttpClientContract $httpClient)
+    {
+        self::$httpClient = $httpClient;
+    }
+
+    protected static function getHttpClient()
+    {
+        if (is_null(self::$httpClient)) {
+            return new EasyCurl;
+        }
+
+        return self::$httpClient;
     }
 
     public function __invoke($method, $args)
     {
         $body = $this->buildRpcReq($method, $args);
-        $response = $this->httpClient->request('post', $this->host, $body, array(
+        $httpClient = self::getHttpClient();
+        $response = $httpClient->request('post', $this->host, $body, array(
             'User-Agent: ' . $this->agent,
         ));
 
         return $this->parseRpcData($response, $body);
     }
 
-    private function buildRpcReq($method, $args)
+    protected function buildRpcReq($method, $args)
     {
         return array(
             'class'     => $this->modName,
@@ -52,7 +73,7 @@ class Client
      * @return mixed
      * @throws Exception
      */
-    private function parseRpcData($response, $request = array())
+    protected function parseRpcData($response, $request = array())
     {
         //$curl_info 包含信息包括:url, content_type, http_code, header_size, request_size, total_time
         // echo $response['total_time'];

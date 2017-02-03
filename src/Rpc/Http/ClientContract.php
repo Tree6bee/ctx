@@ -7,5 +7,15 @@ namespace Tree6bee\Ctx\Rpc\Http;
  */
 interface ClientContract
 {
-    public function request($method = 'get', $url, $body = array(), $headers = array());
+    public function request($method, $url, $body = array(), $headers = array(), $options = array());
+
+    public function getHttpCode();
+
+    public function getHeader();
+
+    public function getBody();
+
+    public function getCurlInfo();
+
+    public function getTotalTime();
 }

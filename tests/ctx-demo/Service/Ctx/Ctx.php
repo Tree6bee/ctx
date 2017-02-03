@@ -31,18 +31,19 @@ class CtxCtx extends Ctx
 
     /**
      * @deprecated 调试代码
+     * 模块 rpc 配置
      */
     protected $rpc = array(
-        'host'      => 'http://cf.sh7ne.dev/public/rpc.php',
+        'host'      => 'http://ctx.sh7ne.dev/public/rpc.php',
         'method'    => array(
-            'rpcDebug',
+            'debug',
         ),
     );
 
     /**
-     * 测试代码
+     * rpc 测试代码
      */
-    private function rpcDebug($var = array())
+    private function debug($var = array())
     {
         return $var;
     }

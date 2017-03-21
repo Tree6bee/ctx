@@ -32,7 +32,7 @@ abstract class Ctx
     /**
      * 请求单例
      *
-     * @return $this
+     * @return Ctx
      */
     public static function getInstance()
     {

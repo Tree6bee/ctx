@@ -81,6 +81,12 @@ abstract class Ctx
     {
         $args = func_get_args();
         $class = array_shift($args);
+
+        return $this->loadChild($class, $args);
+    }
+
+    final protected function loadChild($class, $args)
+    {
         if (! empty($this->modName)) {
             $class = ucfirst($class);
             $className = '\\' . $this->namespace . '\Service\\' . $this->modName . '\\' . $class;

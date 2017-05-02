@@ -3,7 +3,6 @@
 namespace Tree6bee\Ctx\Basic;
 
 use Tree6bee\Ctx\Exceptions\Exception;
-use ReflectionClass;
 use Tree6bee\Ctx\Rpc\Client;
 
 /**
@@ -88,7 +87,6 @@ abstract class Ctx
     final protected function loadChild($class, $args)
     {
         if (! empty($this->modName)) {
-            $class = ucfirst($class);
             $className = '\\' . $this->namespace . '\Service\\' . $this->modName . '\\Child\\' . $class;
             $classReflection = new ReflectionClass($className);
             //classReflection 拥有的方法: isAbstract | isInterface | isSubclassOf | hasMethod | getMethod('方法名')->isPublic()

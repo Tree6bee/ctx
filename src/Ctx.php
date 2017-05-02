@@ -73,19 +73,19 @@ abstract class Ctx
         //不想增加对首字母大小写的判断
         //强制调用的时候模块名大写
         $m = ucfirst($m);
-        $file = $this->ctxBase . '/Service/' . $m . '/Ctx.php';
-        if (is_file($file)) {
-            //这里不能用require_once防止屏蔽了多次加载同一个模块
-            //模块接口文件必须是单例，防止错误的调用模块接口
-            Loader\includeFile($file);
-            //古怪的className，因为模块接口文件禁止被loadC
-            $className = '\\' . $this->ctxNamespace . '\Service\\' . $m . '\\' . $m . 'Ctx';
-            $this->$m = new $className();
-            $this->$m->ctx = $this;
-            $this->$m->initWithArgs($this->ctxNamespace, $m);
-            return $this->$m;
+        //这里不能用require_once防止屏蔽了多次加载同一个模块
+        //模块接口文件必须是单例，防止错误的调用模块接口
+        // Loader\includeFile($file);
+        //古怪的className，因为模块接口文件禁止被loadC
+        if (property_exists($this, $m)) {
+            throw new Exception("Module name {$m} should begin with a capital letter.");
         }
-        throw new Exception("Module {$m} do not exist, failed to load file: " . $file);
+
+        $className = '\\' . $this->ctxNamespace . '\Service\\' . $m . '\\Ctx';
+        $this->$m = new $className();
+        $this->$m->ctx = $this;
+        $this->$m->initWithArgs($this->ctxNamespace, $m);
+        return $this->$m;
     }
 
     /**

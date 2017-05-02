@@ -6,6 +6,8 @@ use Tests\Tree6bee\Ctx\Basic\Ctx;
 
 class Demo extends Ctx
 {
+    protected $log = "";
+
     public function __construct($prefix)
     {
         $this->prefix = $prefix;

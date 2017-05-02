@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Tree6bee\Ctx\Service\Ctx;
+namespace Tests\Tree6bee\Ctx\Service\Ctx\Child;
 
 use Tests\Tree6bee\Ctx\Basic\Ctx;
 

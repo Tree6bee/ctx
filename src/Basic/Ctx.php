@@ -89,7 +89,7 @@ abstract class Ctx
     {
         if (! empty($this->modName)) {
             $class = ucfirst($class);
-            $className = '\\' . $this->namespace . '\Service\\' . $this->modName . '\\' . $class;
+            $className = '\\' . $this->namespace . '\Service\\' . $this->modName . '\\Child\\' . $class;
             $classReflection = new ReflectionClass($className);
             //classReflection 拥有的方法: isAbstract | isInterface | isSubclassOf | hasMethod | getMethod('方法名')->isPublic()
             //getConstructor()->getParameters() 获取构造函数的参数(方便实现依赖注入)

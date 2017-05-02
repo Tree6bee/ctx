@@ -67,16 +67,13 @@ abstract class Ctx
 
     /**
      * 自动单例获取ctx服务框架的模块
+     * 模块接口文件必须是单例，防止错误的调用模块接口
      */
     public function __get($m)
     {
         //不想增加对首字母大小写的判断
         //强制调用的时候模块名大写
         $m = ucfirst($m);
-        //这里不能用require_once防止屏蔽了多次加载同一个模块
-        //模块接口文件必须是单例，防止错误的调用模块接口
-        // Loader\includeFile($file);
-        //古怪的className，因为模块接口文件禁止被loadC
         if (property_exists($this, $m)) {
             throw new Exception("Module name {$m} should begin with a capital letter.");
         }

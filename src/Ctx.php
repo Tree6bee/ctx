@@ -44,25 +44,18 @@ abstract class Ctx
     }
 
     /**
-     * ctx_base 目录
-     * @var $ctxBase
-     */
-    private $ctxBase;
-
-    /**
      * ctx命名空间
-     * @var $ctxNamespace
      */
-    private $ctxNamespace;
+    protected $ctxNamespace;
 
     /**
      * 私有构造函数，防止外界实例化对象
      */
     private function __construct()
     {
-        $thisReflection = new ReflectionClass($this);
-        $this->ctxBase = dirname($thisReflection->getFileName());
-        $this->ctxNamespace = $thisReflection->getNamespaceName();
+        //去掉反射提高性能
+        // $thisReflection = new ReflectionClass($this);
+        // $this->ctxNamespace = $thisReflection->getNamespaceName();
     }
 
     /**

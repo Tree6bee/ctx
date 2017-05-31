@@ -3,6 +3,7 @@
 namespace Tree6bee\Ctx\Basic;
 
 use Tree6bee\Ctx\Exceptions\Exception;
+use ReflectionClass;
 use Tree6bee\Ctx\Rpc\Client;
 
 /**

@@ -10,4 +10,6 @@ class Ctx extends BasicCtx
      * 框架单例，静态变量保存全局实例
      */
     protected static $ctxInstance;
+
+    protected $ctxNamespace = 'Tests\Jetblink\Ctx';
 }

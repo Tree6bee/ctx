@@ -1,7 +1,7 @@
 {
     "name": "tree6bee/ctx",
     "description": "the context library",
-    "keywords": ["ctx", "context", "tree6bee"],
+    "keywords": ["ctx", "framework", "context", "tree6bee"],
     "license": "MIT",
 
     "require": {

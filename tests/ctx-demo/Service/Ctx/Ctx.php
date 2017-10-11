@@ -11,6 +11,11 @@ use Tests\Tree6bee\Ctx\Basic\Ctx as BasicCtx;
  */
 class Ctx extends BasicCtx
 {
+    /**
+     * @var \Tests\Tree6bee\Ctx\Service\Ctx\Child\Demo
+     */
+    private $demo;
+
     public function init()
     {
         $this->demo = $this->loadC('Demo', 'hello');

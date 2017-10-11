@@ -8,6 +8,16 @@ class Demo extends Ctx
 {
     protected $log = "";
 
+    /**
+     * @var string
+     */
+    private $prefix;
+
+    /**
+     * @var string
+     */
+    private $middle;
+
     public function __construct($prefix)
     {
         $this->prefix = $prefix;

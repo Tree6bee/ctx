@@ -4,6 +4,10 @@ namespace Tests\Tree6bee\Ctx;
 
 use Tree6bee\Ctx\Ctx as BasicCtx;
 
+/**
+ * Class Ctx
+ * @property \Tests\Tree6bee\Ctx\Service\Ctx\Ctx $Ctx
+ */
 class Ctx extends BasicCtx
 {
     /**
@@ -11,5 +15,5 @@ class Ctx extends BasicCtx
      */
     protected static $ctxInstance;
 
-    protected $ctxNamespace = 'Tests\Jetblink\Ctx';
+    protected $ctxNamespace = 'Tests\Tree6bee\Ctx';
 }

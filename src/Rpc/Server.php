@@ -20,14 +20,12 @@ class Server
             isset($_POST['class'], $_POST['method'])
         ) {
             $class = $_POST['class'];
-            $class = 'Ctx\Rpc\\' . $class;
             $method = $_POST['method'];
             $args = isset($_POST['args']) ? $_POST['args'] : array();
-            $obj = new $class;
-            $obj->ctx = $ctx;
+
             header('Content-Type: application/json; charset=utf-8');
             try {
-                $data = call_user_func_array(array($obj, $method), $args);
+                $data = call_user_func_array(array($ctx->$class, $method), $args);
                 $ret = array(
                     'code'      => 0,   //返回码
                     'data'      => $data, //返回数据体

@@ -6,7 +6,7 @@
 
     "require": {
         "php": ">=5.3",
-        "tree6bee/support": "~1.0"
+        "tree6bee/support": "~2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.4",

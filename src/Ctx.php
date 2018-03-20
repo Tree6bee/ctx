@@ -50,7 +50,7 @@ abstract class Ctx
     /**
      * 私有构造函数，防止外界实例化对象
      */
-    private function __construct()
+    protected function __construct()
     {
         //去掉反射提高性能
         // $thisReflection = new ReflectionClass($this);

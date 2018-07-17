@@ -5,7 +5,7 @@
     "license": "MIT",
 
     "require": {
-        "php": ">=5.3",
+        "php": ">=7.1",
         "tree6bee/support": "~2.0"
     },
     "require-dev": {

@@ -39,7 +39,7 @@ class Ctx extends BasicCtx
      * 模块 rpc 配置
      */
     protected $rpc = array(
-        'host'      => 'http://ctx.sh7ne.dev/public/rpc.php',
+        'host'      => 'http://www.chat.com',
         'method'    => array(
             'debug',
         ),

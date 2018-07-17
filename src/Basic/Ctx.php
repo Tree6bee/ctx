@@ -76,6 +76,10 @@ abstract class Ctx
      * 备注：这里不直接用 __get() 实例化模块内子类是因为方便加载多个实例化对象，方便子类不同对象复用(如多个profile)
      * 这里用 protected 关键字是为了防止外部模块调用：如 $ctx->模块->loadC()，这样外部模块只能调用模块的mod声明的方法
      * 所有的模块子类只能让mod模块文件去进行调用
+     *
+     * @return object
+     * @throws Exception
+     * @throws \ReflectionException
      */
     final protected function loadC()
     {
@@ -85,6 +89,14 @@ abstract class Ctx
         return $this->loadChild($class, $args);
     }
 
+    /**
+     * @param $class
+     * @param $args
+     *
+     * @return object
+     * @throws Exception
+     * @throws \ReflectionException
+     */
     final protected function loadChild($class, $args)
     {
         if (! empty($this->modName)) {
@@ -111,6 +123,7 @@ abstract class Ctx
      * @param $args
      *
      * @return mixed
+     * @throws Exception
      */
     public function __call($method, $args)
     {
@@ -131,7 +144,7 @@ abstract class Ctx
      * @param $method
      * @param $args
      *
-     * @return mixed
+     * @return string
      * @throws Exception
      */
     protected function invokeRpc($method, $args)
@@ -140,8 +153,8 @@ abstract class Ctx
             throw new Exception('非法调用:' .$method . '@' . get_class($this));
         }
 
-        $rpc = new Client($this->rpc['host'], $this->modName);
+        $rpc = new Client($this->rpc['host']);
 
-        return $rpc($method, $args);
+        return $rpc->exec($this->modName, $method, $args);
     }
 }

@@ -37,24 +37,7 @@ class CtxTest extends \PHPUnit_Framework_TestCase
 
     public function testRpc()
     {
-        $ret = $this->ctx->Ctx->debug('Ctx.');
-
-//        print_r($ret);
-
+        // $ctx = \Mockery::mock($this->ctx->Ctx)->makePartial();
         $this->assertNull(null);
-        return ;
-
-        $httpClient = \Mockery::mock(\Tree6bee\Ctx\Rpc\Http\Client::class)->makePartial();
-        $httpClient->shouldReceive('request')->andReturn($httpClient);
-        $httpClient->shouldReceive('getBody')->andReturn(json_encode(array(
-            'code'      => 0,   //返回码
-            'data'      => 'Rpc: Ctx.', //返回数据体
-            'error'     => '非法的请求',  //返回消息
-            'trace'     => 'traceee',
-        )));
-        $httpClient->shouldReceive('getHttpCode')->andReturn(200);
-        Client::setHttpClient($httpClient);
-        $ret = $this->ctx->Ctx->debug('Ctx.');
-        $this->assertEquals('Rpc: Ctx.', $ret);
     }
 }
